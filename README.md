@@ -1,16 +1,22 @@
-# guess_it_frontend
+# GuessIt
 
-A new Flutter project.
+**GuessIt** is a **word puzzle game** built using **Flutter** in just **1.5 hours**! Watch the full tutorial on YouTube: [Tutorial](https://www.youtube.com/watch?v=6gFL1occkcQ).
 
-## Getting Started
+## 📌 Features  
+✅ Simple & clean UI  
+✅ Interactive word input system  
+✅ Real-time feedback on word guesses  
+✅ Flutter-powered smooth animations  
+✅ Lightweight & fast performance  
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
+## 📚 License
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+This project is intended for educational purposes only. You may use, modify, and distribute it, but **do not use it for commercial purposes**.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## 📄 Contact
+
+If you have any questions, feel free to reach out to me:
+
+- [Email](mailto:halilovrauf268@gmail.com)
+- [GitHub Profile](https://github.com/Izwin)
