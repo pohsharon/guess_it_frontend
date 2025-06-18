@@ -16,10 +16,10 @@ class GameRepositoryImpl implements GameRepository{
       return Right(null);
     }
     on DioException {
-      return Left(GameFailure(message: 'Please, enter correct word'));
+      return Left(GameFailure(message: 'Please, enter a valid word'));
     }
     catch (e){
-      return Left(GameFailure(message: 'Please, enter correct word'));
+      return Left(GameFailure(message: 'Please, enter a valid word'));
     }
   }
 

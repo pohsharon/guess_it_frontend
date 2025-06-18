@@ -71,7 +71,11 @@ class GamePage extends StatelessWidget {
             showDialog(
                 context: context,
                 builder: (context) {
-                  return WinDialog(word: state.word ?? '');
+                  return WinDialog(
+                    word: state.word ?? '',
+                    onReplay: () => context.read<GameBloc>().add(StartGameEvent(
+                        attemptsCount: attemptsCount, wordLength: wordLength)),
+                  );
                 },
                 barrierDismissible: false);
           } else if (state.status == GameStatus.loss) {

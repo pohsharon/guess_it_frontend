@@ -35,14 +35,14 @@ class _HomePageState extends State<HomePage> {
                   height: 10,
                 ),
                 Text(
-                  'By DevVibe Youtube',
+                  'By Poh Sharon (22004742)',
                   style: Theme.of(context)
                       .textTheme
                       .headlineMedium
                       ?.copyWith(fontWeight: FontWeight.w400, letterSpacing: 2),
                 ),
                 const SizedBox(
-                  height: 16,
+                  height: 35,
                 ),
                 Text(
                   'Choose your game settings',
