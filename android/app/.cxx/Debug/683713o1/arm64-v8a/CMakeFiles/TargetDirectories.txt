@@ -1,0 +1,2 @@
+/Users/pohsharon/spelling_bee/android/app/.cxx/Debug/683713o1/arm64-v8a/CMakeFiles/edit_cache.dir
+/Users/pohsharon/spelling_bee/android/app/.cxx/Debug/683713o1/arm64-v8a/CMakeFiles/rebuild_cache.dir

@@ -1,4 +1,4 @@
-enum GameStatus { initial, loading, inProgress, error, win, loss }
+enum GameStatus { initial, loading, inProgress, win, loss, error }
 
 class GameState {
   final GameStatus status;
@@ -10,32 +10,28 @@ class GameState {
   final String? word;
   final int? attemptsCount;
 
-  GameState._({
-    required this.status,
-    this.errorMessage,
-    this.attempts,
-    this.currentAttempt,
-    this.word,
-    this.attemptsCount,
-  });
+  GameState._(
+      {required this.status,
+      this.errorMessage,
+      this.attempts,
+      this.currentAttempt,
+      this.word,
+      this.attemptsCount});
 
-  factory GameState.initial() {
-    return GameState._(status: GameStatus.initial);
-  }
+  factory GameState.initial() => GameState._(status: GameStatus.initial);
 
-  GameState copyWith({
-    GameStatus? status,
-    String? errorMessage,
-    List<String>? attempts,
-    String? currentAttempt,
-    String? word,
-    int? attemptsCount,
-  }) => GameState._(
-    status: status ?? this.status,
-    errorMessage: errorMessage ?? this.errorMessage,
-    attempts: attempts ?? this.attempts,
-    currentAttempt: currentAttempt ?? this.currentAttempt,
-    word: word ?? this.word,
-    attemptsCount: attemptsCount ?? this.attemptsCount,
-  );
+  GameState copyWith(
+          {GameStatus? status,
+          String? errorMessage,
+          List<String>? attempts,
+          String? currentAttempt,
+          String? word,
+          int? attemptsCount}) =>
+      GameState._(
+          status: status ?? this.status,
+          errorMessage: errorMessage ?? this.errorMessage,
+          attempts: attempts ?? this.attempts,
+          currentAttempt: currentAttempt ?? this.currentAttempt,
+          attemptsCount: attemptsCount ?? this.attemptsCount,
+          word: word ?? this.word);
 }
