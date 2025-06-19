@@ -4,41 +4,45 @@ import 'package:guess_it_frontend/core/model/either.dart';
 import 'package:guess_it_frontend/features/game/data/datasource/game_remote_datasource.dart';
 import 'package:guess_it_frontend/features/game/domain/game_repository.dart';
 
-class GameRepositoryImpl implements GameRepository{
+class GameRepositoryImpl implements GameRepository {
   final GameRemoteDatasource gameRemoteDatasource;
 
   GameRepositoryImpl({required this.gameRemoteDatasource});
 
   @override
   Future<Either<Failure, void>> checkWord(String word) async {
-    try{
+    try {
       var result = await gameRemoteDatasource.checkWord(word);
       return Right(null);
-    }
-    on DioException {
+    } on DioException {
       return Left(GameFailure(message: 'Please enter a valid word'));
-    }
-    catch (e){
+    } catch (e) {
       return Left(GameFailure(message: 'Please enter a valid word'));
     }
   }
 
   @override
   Future<Either<Failure, String>> getRandomWord(int length) async {
-    try{
+    try {
       var result = await gameRemoteDatasource.getRandomWord(length);
-      try{
+      try {
         await gameRemoteDatasource.checkWord(result);
-      }
-      catch (e){
+      } catch (e) {
         return getRandomWord(length);
       }
       return Right(result);
-    }
-    catch (e){
+    } catch (e) {
       return Left(GameFailure(message: 'Error'));
     }
   }
 
-  
+  @override
+  Future<Either<Failure, String?>> wordMeaning(String word) async {
+    try {
+      var result = await gameRemoteDatasource.wordMeaning(word);
+      return Right(result);
+    } catch (e) {
+      return Left(GameFailure(message: 'Error fetching word meaning'));
+    }
+  }
 }

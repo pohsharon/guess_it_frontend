@@ -8,6 +8,7 @@ import 'package:guess_it_frontend/features/game/presentation/widgets/attempts_wi
 import 'package:guess_it_frontend/features/game/presentation/widgets/game_keyboard.dart';
 import 'package:guess_it_frontend/features/game/presentation/widgets/loss_dialog.dart';
 import 'package:guess_it_frontend/features/game/presentation/widgets/win_dialog.dart';
+import 'package:guess_it_frontend/features/game/domain/game_repository.dart';
 
 class GamePage extends StatelessWidget {
   final int attemptsCount;
@@ -73,8 +74,10 @@ class GamePage extends StatelessWidget {
                 builder: (context) {
                   return WinDialog(
                     word: state.word ?? '',
-                    onReplay: () => context.read<GameBloc>().add(StartGameEvent(
-                        attemptsCount: attemptsCount, wordLength: wordLength)),
+                    onReplay: () => context.read<GameBloc>().add(
+                          StartGameEvent(attemptsCount: attemptsCount, wordLength: wordLength),
+                        ),
+                    gameRepository: getIt<GameRepository>(),
                   );
                 },
                 barrierDismissible: false);
@@ -85,6 +88,7 @@ class GamePage extends StatelessWidget {
                   return LossDialog(word: state.word ?? '', 
                      onReplay: () => context.read<GameBloc>().add(StartGameEvent(
                         attemptsCount: attemptsCount, wordLength: wordLength)),
+                    gameRepository: getIt<GameRepository>()
                 );
                 },
                 barrierDismissible: false);

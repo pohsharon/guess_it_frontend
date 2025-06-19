@@ -1,20 +1,60 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:guess_it_frontend/core/theme/app_colors.dart';
+import 'package:guess_it_frontend/features/game/domain/game_repository.dart';
 
-class LossDialog extends StatelessWidget {
+class LossDialog extends StatefulWidget {
   final String word;
   final VoidCallback onReplay;
+  final bool isDefinitionView;
+  final GameRepository gameRepository;
 
   const LossDialog({
     super.key,
     required this.word,
     required this.onReplay,
+    required this.gameRepository,
+    this.isDefinitionView = false,
   });
 
   @override
+  State<LossDialog> createState() => _LossDialogState();
+}
+
+class _LossDialogState extends State<LossDialog> {
+  String? meaning;
+  bool loading = false;
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.isDefinitionView) {
+      _fetchMeaning();
+    }
+  }
+
+  Future<void> _fetchMeaning() async {
+    setState(() => loading = true);
+    final result = await widget.gameRepository.wordMeaning(widget.word);
+    result.fold(
+      (failure) {
+        setState(() {
+          meaning = failure.message;
+          loading = false;
+        });
+      },
+      (value) {
+        setState(() {
+          meaning = value;
+          loading = false;
+        });
+      },
+    );
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final Color surfaceColor = Theme.of(context).colorScheme.surface;
+    final surfaceColor = Theme.of(context).colorScheme.surface;
 
     return AlertDialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
@@ -23,51 +63,88 @@ class LossDialog extends StatelessWidget {
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          const Text(
-            "😢",
-            style: TextStyle(fontSize: 60),
-          ),
+          Text(widget.isDefinitionView ? "📘" : "😢", style: const TextStyle(fontSize: 60)),
           const SizedBox(height: 16),
-          Text(
-            'You Lost!',
-            style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-              color:  Colors.black,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          const SizedBox(height: 12),
-          Text(
-            'The correct word was:\n"$word"',
-            textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-              color: Colors.black,
-              fontSize: 16,
-            ),
-          ),
-          const SizedBox(height: 24),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              // Home Button
-              ElevatedButton.icon(
-                onPressed: () {
-                  context.pop(); // Close dialog
-                  context.pop(); // Back to home
-                },
-                icon: const Icon(Icons.home),
-                label: const Text('Home'),
-                style: ElevatedButton.styleFrom(
-                  // backgroundColor: surfaceColor,
-                  // foregroundColor: Colors.white,
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                  textStyle: const TextStyle(fontSize: 14),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
+              Flexible(
+                child: Text(
+                  widget.isDefinitionView ? 'Word Meaning' : 'You Lost!',
+                  style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
               ),
+              if (!widget.isDefinitionView) ...[
+                const SizedBox(width: 8),
+                Tooltip(
+                  message: 'See word meaning',
+                  child: IconButton(
+                    icon: const Icon(Icons.info_outline, color: Colors.black54),
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (context) => LossDialog(
+                          word: widget.word,
+                          onReplay: widget.onReplay,
+                          isDefinitionView: true,
+                          gameRepository: widget.gameRepository,
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ]
             ],
           ),
+          const SizedBox(height: 12),
+          if (widget.isDefinitionView)
+            loading
+                ? const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 20),
+                    child: CircularProgressIndicator(),
+                  )
+                : Text(
+                    '"${widget.word}":\n${meaning ?? 'No definition available.'}',
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                          color: Colors.black,
+                          fontSize: 16,
+                        ),
+                  )
+          else
+            Text(
+              'The correct word was:\n"${widget.word}"',
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    color: Colors.black,
+                    fontSize: 16,
+                  ),
+            ),
+          const SizedBox(height: 24),
+          if (!widget.isDefinitionView)
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                ElevatedButton.icon(
+                  onPressed: () {
+                    context.pop(); // Close dialog
+                    context.pop(); // Back to home
+                  },
+                  icon: const Icon(Icons.home),
+                  label: const Text('Home'),
+                  style: ElevatedButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                    textStyle: const TextStyle(fontSize: 14),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
+                ),
+              ],
+            ),
         ],
       ),
     );

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:guess_it_frontend/core/get_it/get_it.dart';
+import 'package:guess_it_frontend/features/game/domain/game_repository.dart';
 import 'package:guess_it_frontend/features/game/presentation/bloc/game_bloc.dart';
 import 'package:guess_it_frontend/features/game/presentation/bloc/game_event.dart';
 import 'package:guess_it_frontend/features/game/presentation/bloc/game_state.dart';
@@ -75,6 +76,7 @@ class GamePage extends StatelessWidget {
                     word: state.word ?? '',
                     onReplay: () => context.read<GameBloc>().add(StartGameEvent(
                         attemptsCount: attemptsCount, wordLength: wordLength)),
+                    gameRepository: getIt<GameRepository>(),
                   );
                 },
                 barrierDismissible: false);
@@ -82,9 +84,11 @@ class GamePage extends StatelessWidget {
             showDialog(
                 context: context,
                 builder: (context) {
-                  return LossDialog(word: state.word ?? '',
-                      onReplay: () => context.read<GameBloc>().add(StartGameEvent(
-                          attemptsCount: attemptsCount, wordLength: wordLength)),
+                  return LossDialog(
+                    word: state.word ?? '',
+                    onReplay: () => context.read<GameBloc>().add(StartGameEvent(
+                        attemptsCount: attemptsCount, wordLength: wordLength)),
+                    gameRepository: getIt<GameRepository>(),
                   );
                 },
                 barrierDismissible: false);
