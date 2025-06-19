@@ -29,7 +29,7 @@ class WinDialog extends StatelessWidget {
           Text(
             'You Nailed It!',
             style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-              color: Theme.of(context).colorScheme.surface,
+              color: Colors.black,
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -38,7 +38,7 @@ class WinDialog extends StatelessWidget {
             'Awesome job guessing the word:\n"$word"',
             textAlign: TextAlign.center,
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-              color: Theme.of(context).colorScheme.surface,
+              color: Colors.black,
               fontSize: 16,
             ),
           ),
@@ -46,24 +46,6 @@ class WinDialog extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              // Replay Button
-              ElevatedButton.icon(
-                onPressed: () {
-                  context.pop(); // Close dialog
-                  onReplay(); // Restart logic
-                },
-                icon: const Icon(Icons.refresh),
-                label: const Text('Play Again'),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Theme.of(context).colorScheme.surface,
-                  foregroundColor: Colors.white,
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                  textStyle: const TextStyle(fontSize: 14),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                ),
-              ),
               // Home Button
               ElevatedButton.icon(
                 onPressed: () {
@@ -73,10 +55,10 @@ class WinDialog extends StatelessWidget {
                 icon: const Icon(Icons.home),
                 label: const Text('Home'),
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Theme.of(context).colorScheme.surface,
-                  foregroundColor: Colors.white,
+                  // backgroundColor: Theme.of(context).colorScheme.surface,
+                  // foregroundColor: Colors.white,
                   padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                  textStyle: const TextStyle(fontSize: 14),
+                  textStyle: const TextStyle(fontSize: 14, color: Colors.black),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
                   ),

@@ -26,7 +26,7 @@ class _HomePageState extends State<HomePage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Guess It',
+                  'Spelling BEe It',
                   style: Theme.of(context).textTheme.headlineLarge?.copyWith(
                       letterSpacing: 2,
                       color: Theme.of(context).colorScheme.primary),
@@ -95,7 +95,7 @@ class _HomePageState extends State<HomePage> {
                         elevation: 5,
                         shadowColor: Colors.black.withOpacity(0.3)),
                     child: Text(
-                      'Start Game',
+                      'Start Gameeeeee',
                       style: Theme.of(context)
                           .textTheme
                           .headlineSmall

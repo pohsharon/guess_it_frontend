@@ -136,7 +136,8 @@ class GameKeyboard extends StatelessWidget {
     for(final attempt in attempts){
       for(int i =0;i<attempt.length; i++){
         if(attempt[i] == key && key == word[i]){
-          return AppColors.green;
+      return const Color.fromARGB(255, 6, 231, 21);
+
         }
       }
     }
@@ -144,14 +145,15 @@ class GameKeyboard extends StatelessWidget {
     if(word.contains(key)){
       for(final attempt in attempts){
         if(attempt.contains(key)){
-          return AppColors.yellow;
+          return const Color.fromARGB(255, 251, 173, 3);
         }
       }
     }
     
     for(final attempt in attempts){
       if(attempt.contains(key)){
-        return Theme.of(context).colorScheme.onSurfaceVariant;
+        // return Theme.of(context).colorScheme.onSurfaceVariant;
+        return const Color.fromARGB(255, 214, 211, 211);
       }
     }
     

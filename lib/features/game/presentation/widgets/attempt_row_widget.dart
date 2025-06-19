@@ -74,11 +74,11 @@ class AttemptRowWidget extends StatelessWidget {
     if (attemptIndex >= previousAttempts.length ||
         letter.isEmpty ||
         isCurrentAttempt) {
-      return null;
+      return const Color.fromARGB(255, 243, 238, 238);
     } else if (word[letterIndex] == letter) {
-      return AppColors.green;
+      return const Color.fromARGB(255, 6, 231, 21);
     } else if (word.contains(letter)) {
-      return AppColors.yellow;
+      return const Color.fromARGB(255, 251, 173, 3);
     }
     return Theme
         .of(context)

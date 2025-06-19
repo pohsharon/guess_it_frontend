@@ -26,7 +26,7 @@ class _HomePageState extends State<HomePage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Guess It',
+                  'Spelling Bee 🐝',
                   style: Theme.of(context).textTheme.headlineLarge?.copyWith(
                       letterSpacing: 2,
                       color: Theme.of(context).colorScheme.primary),
@@ -99,7 +99,7 @@ class _HomePageState extends State<HomePage> {
                       style: Theme.of(context)
                           .textTheme
                           .headlineSmall
-                          ?.copyWith(fontWeight: FontWeight.bold),
+                          ?.copyWith(fontWeight: FontWeight.bold, color: Colors.white),
                     ),
                   ),
                 )

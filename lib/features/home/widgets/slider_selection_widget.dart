@@ -13,7 +13,7 @@ class SliderSelectionWidget extends StatelessWidget {
       required this.title,
       required this.value,
       required this.minValue,
-        required this.divisions,
+      required this.divisions,
       required this.maxValue,
       required this.onChanged});
 
@@ -22,14 +22,14 @@ class SliderSelectionWidget extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.secondary,
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: [BoxShadow(
-          color: Colors.black.withOpacity(.1),
-          blurRadius: 8,
-          spreadRadius: 4
-        )]
-      ),
+          color: Theme.of(context).colorScheme.secondary,
+          borderRadius: BorderRadius.circular(16),
+          boxShadow: [
+            BoxShadow(
+                color: Colors.black.withOpacity(.1),
+                blurRadius: 8,
+                spreadRadius: 4)
+          ]),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -56,10 +56,14 @@ class SliderSelectionWidget extends StatelessWidget {
           const SizedBox(
             height: 12,
           ),
-          Text('Value: ${value.toInt()}',style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-            fontWeight: FontWeight.bold,
-
-          ),)
+          Center(
+            child: Text(
+              'Value: ${value.toInt()}',
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
+            ),
+          )
         ],
       ),
     );
